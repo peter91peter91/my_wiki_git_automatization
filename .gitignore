@@ -1,0 +1,17 @@
+/node_modules
+/.phpdoc
+/.idea
+/.bash_history
+/.cache
+/.config
+/.local
+/public
+/bootstrap
+/storage
+/dev
+.env
+artisan
+vendor
+composer.lock
+.phpunit.result.cache
+.selected_editor

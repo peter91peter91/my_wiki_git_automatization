@@ -1,0 +1,27 @@
+image: python:3.8
+
+variables:
+  DEPLOY_ENVIRONMENT:
+    description: "Целевое окружение деплоя"
+    options:
+      - "staging"
+      - "production"
+      - "update_wiki"
+    value: "staging"
+
+stages:
+  - update_wiki
+
+update_wiki:
+  stage: update_wiki
+  script:
+    - "echo 'Deploy Environment: $DEPLOY_ENVIRONMENT'"
+    - "python3 -m pip install --upgrade pip"
+    - "python3 -m pip install python-gitlab gitpython python-slugify"
+    - "python3 updating_gitlab_wiki_pages_from_the_BASE_folder.py"
+  rules:
+    - exists:
+        - "$CI_ENVIRONMENT_SLUG"
+    - when: manual
+  environment:
+    name: $DEPLOY_ENVIRONMENT
